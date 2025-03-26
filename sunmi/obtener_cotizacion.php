@@ -6,7 +6,7 @@
         $pdo = new Conexion();
         $retorno='[';
         $sql = $pdo->prepare("select nombre_empresa,giro_empresa,direccion,concat(ciudad,', ',estado) as ciudad,regimen,fiscal_empresa  from perfil,
-        facturas_ventas,users,tbconfiguracion where id_vendedor=users.id_users and users.sucursal_users=perfil.id_perfil and id_factura=".$idfactura);
+        facturas_cot,users,tbconfiguracion where id_vendedor=users.id_users and users.sucursal_users=perfil.id_perfil and numero_factura='".$idfactura."'");
         $sql ->execute();
         $sql->setFetchMode(PDO::FETCH_ASSOC);
         $retorno.='{"empresa":[{';
@@ -17,7 +17,7 @@
         }
         $retorno.='}],"factura":[{';
         $sql = $pdo->prepare("select cot_nombre_cliente,cot_nit_cliente,
-            monto_factura from facturas_cot where id_factura=:id");
+            monto_factura from facturas_cot where numero_factura=:id");
         $sql->bindValue(':id',$idfactura);
         $sql ->execute();
         $sql->setFetchMode(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@
         }
         $retorno.='}],"detalle":[';
         $sql = $pdo->prepare("select nombre_producto,precio_venta,cantidad,esgenerico from detalle_fact_cot,productos where 
-        productos.id_producto=detalle_fact_cot.id_producto and id_factura=:id");
+        productos.id_producto=detalle_fact_cot.id_producto and numero_factura=:id");
         $sql->bindValue(':id',$idfactura);
         $sql ->execute();
         $sql->setFetchMode(PDO::FETCH_ASSOC);
