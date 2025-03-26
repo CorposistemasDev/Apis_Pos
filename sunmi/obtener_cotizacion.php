@@ -13,7 +13,7 @@
         foreach ($sql as $value) 
         {
             $retorno.='"razon":"'.$value['nombre_empresa'].'","empresa":"'.$value['giro_empresa'].'","nit":"'.$value['fiscal_empresa'].'",
-            "direccion":"'.$value['direccion'].'","ciudad":"'.$value['ciudad'].'","regimen":"'.$value['regimen'].'","documento":"ticket"';
+            "direccion":"'.$value['direccion'].'","ciudad":"'.$value['ciudad'].'","regimen":"'.$value['regimen'].'","documento":"cotizcion"';
         }
         $retorno.='}],"factura":[{';
         $sql = $pdo->prepare("select cot_nombre_cliente,cot_nit_cliente,
